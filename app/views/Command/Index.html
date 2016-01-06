@@ -1,0 +1,41 @@
+{{set . "title" "Home"}}
+{{append . "moreScripts" "js/command_index.js"}}
+{{template "header.html" .}}
+
+<header class="hero-unit" style="background-color:#A9F16C">
+  <div class="container">
+    <div class="row">
+      <div class="hero-text">
+        <h1>It works!</h1>
+        <p></p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="span6">
+      <button id="Activate">Activate</button>
+    </div>
+  </div>
+</div>
+
+<div>
+  <form name="activate">
+    <label>
+      <select name="channel">
+        <option value="namedqueue">Named queue (default)</option>
+        <option value="usrp">USRP</option>
+      </select>
+    </label>
+    <label>
+      Type:
+      <input type="text" />
+    </label>
+  </form>
+</div>
+
+<div id="log"></div>
+
+{{template "footer.html" .}}
