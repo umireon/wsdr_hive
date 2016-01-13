@@ -4,67 +4,6 @@ package routes
 import "github.com/revel/revel"
 
 
-type tApp struct {}
-var App tApp
-
-
-func (_ tApp) Index(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("App.Index", args).Url
-}
-
-
-type tCommand struct {}
-var Command tCommand
-
-
-func (_ tCommand) Index(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Command.Index", args).Url
-}
-
-func (_ tCommand) Activate(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Command.Activate", args).Url
-}
-
-func (_ tCommand) Activity(
-		user string,
-		ws interface{},
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "user", user)
-	revel.Unbind(args, "ws", ws)
-	return revel.MainRouter.Reverse("Command.Activity", args).Url
-}
-
-
-type tData struct {}
-var Data tData
-
-
-func (_ tData) Meta(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Data.Meta", args).Url
-}
-
-func (_ tData) Fetch(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Data.Fetch", args).Url
-}
-
-
 type tEvent struct {}
 var Event tEvent
 
@@ -98,6 +37,29 @@ func (_ tEvent) DataFetch(
 }
 
 
+type tLogger struct {}
+var Logger tLogger
+
+
+func (_ tLogger) Monitor(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Logger.Monitor", args).Url
+}
+
+func (_ tLogger) MonitorWS(
+		user string,
+		ws interface{},
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "user", user)
+	revel.Unbind(args, "ws", ws)
+	return revel.MainRouter.Reverse("Logger.MonitorWS", args).Url
+}
+
+
 type tTheory struct {}
 var Theory tTheory
 
@@ -121,6 +83,86 @@ func (_ tTheory) AwgnQpsk(
 	args := make(map[string]string)
 	
 	return revel.MainRouter.Reverse("Theory.AwgnQpsk", args).Url
+}
+
+
+type tActivator struct {}
+var Activator tActivator
+
+
+func (_ tActivator) Activate(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Activator.Activate", args).Url
+}
+
+func (_ tActivator) ActivatePost(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Activator.ActivatePost", args).Url
+}
+
+func (_ tActivator) Join(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Activator.Join", args).Url
+}
+
+
+type tApp struct {}
+var App tApp
+
+
+func (_ tApp) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.Index", args).Url
+}
+
+
+type tCommand struct {}
+var Command tCommand
+
+
+func (_ tCommand) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Command.Index", args).Url
+}
+
+func (_ tCommand) Activity(
+		user string,
+		ws interface{},
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "user", user)
+	revel.Unbind(args, "ws", ws)
+	return revel.MainRouter.Reverse("Command.Activity", args).Url
+}
+
+
+type tData struct {}
+var Data tData
+
+
+func (_ tData) Meta(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Data.Meta", args).Url
+}
+
+func (_ tData) Fetch(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Data.Fetch", args).Url
 }
 
 

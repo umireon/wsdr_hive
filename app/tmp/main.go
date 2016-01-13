@@ -9,7 +9,9 @@ import (
 	_ "github.com/revel/modules/testrunner/app"
 	controllers0 "github.com/revel/modules/testrunner/app/controllers"
 	_ "github.com/umireon/wsdr_hive/app"
+	_ "github.com/umireon/wsdr_hive/app/activator"
 	controllers "github.com/umireon/wsdr_hive/app/controllers"
+	_ "github.com/umireon/wsdr_hive/app/logger"
 	tests "github.com/umireon/wsdr_hive/tests"
 	websocket "golang.org/x/net/websocket"
 	"github.com/revel/revel/testing"
@@ -29,69 +31,6 @@ func main() {
 	flag.Parse()
 	revel.Init(*runMode, *importPath, *srcPath)
 	revel.INFO.Println("Running revel server")
-	
-	revel.RegisterController((*controllers.App)(nil),
-		[]*revel.MethodType{
-			&revel.MethodType{
-				Name: "Index",
-				Args: []*revel.MethodArg{ 
-				},
-				RenderArgNames: map[int][]string{ 
-					10: []string{ 
-					},
-				},
-			},
-			
-		})
-	
-	revel.RegisterController((*controllers.Command)(nil),
-		[]*revel.MethodType{
-			&revel.MethodType{
-				Name: "Index",
-				Args: []*revel.MethodArg{ 
-				},
-				RenderArgNames: map[int][]string{ 
-					17: []string{ 
-					},
-				},
-			},
-			&revel.MethodType{
-				Name: "Activate",
-				Args: []*revel.MethodArg{ 
-				},
-				RenderArgNames: map[int][]string{ 
-				},
-			},
-			&revel.MethodType{
-				Name: "Activity",
-				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "user", Type: reflect.TypeOf((*string)(nil)) },
-					&revel.MethodArg{Name: "ws", Type: reflect.TypeOf((**websocket.Conn)(nil)) },
-				},
-				RenderArgNames: map[int][]string{ 
-				},
-			},
-			
-		})
-	
-	revel.RegisterController((*controllers.Data)(nil),
-		[]*revel.MethodType{
-			&revel.MethodType{
-				Name: "Meta",
-				Args: []*revel.MethodArg{ 
-				},
-				RenderArgNames: map[int][]string{ 
-				},
-			},
-			&revel.MethodType{
-				Name: "Fetch",
-				Args: []*revel.MethodArg{ 
-				},
-				RenderArgNames: map[int][]string{ 
-				},
-			},
-			
-		})
 	
 	revel.RegisterController((*controllers.Event)(nil),
 		[]*revel.MethodType{
@@ -126,6 +65,29 @@ func main() {
 			
 		})
 	
+	revel.RegisterController((*controllers.Logger)(nil),
+		[]*revel.MethodType{
+			&revel.MethodType{
+				Name: "Monitor",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+					16: []string{ 
+					},
+				},
+			},
+			&revel.MethodType{
+				Name: "MonitorWS",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "user", Type: reflect.TypeOf((*string)(nil)) },
+					&revel.MethodArg{Name: "ws", Type: reflect.TypeOf((**websocket.Conn)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			
+		})
+	
 	revel.RegisterController((*controllers.Theory)(nil),
 		[]*revel.MethodType{
 			&revel.MethodType{
@@ -144,6 +106,90 @@ func main() {
 			},
 			&revel.MethodType{
 				Name: "AwgnQpsk",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			
+		})
+	
+	revel.RegisterController((*controllers.Activator)(nil),
+		[]*revel.MethodType{
+			&revel.MethodType{
+				Name: "Activate",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+					14: []string{ 
+					},
+				},
+			},
+			&revel.MethodType{
+				Name: "ActivatePost",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
+				Name: "Join",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			
+		})
+	
+	revel.RegisterController((*controllers.App)(nil),
+		[]*revel.MethodType{
+			&revel.MethodType{
+				Name: "Index",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+					10: []string{ 
+					},
+				},
+			},
+			
+		})
+	
+	revel.RegisterController((*controllers.Command)(nil),
+		[]*revel.MethodType{
+			&revel.MethodType{
+				Name: "Index",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+					17: []string{ 
+					},
+				},
+			},
+			&revel.MethodType{
+				Name: "Activity",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "user", Type: reflect.TypeOf((*string)(nil)) },
+					&revel.MethodArg{Name: "ws", Type: reflect.TypeOf((**websocket.Conn)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			
+		})
+	
+	revel.RegisterController((*controllers.Data)(nil),
+		[]*revel.MethodType{
+			&revel.MethodType{
+				Name: "Meta",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
+				Name: "Fetch",
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 

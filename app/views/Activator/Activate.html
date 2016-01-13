@@ -1,0 +1,71 @@
+{{set . "title" "Home"}}
+{{template "header.html" .}}
+
+<style>
+fieldset {
+	margin: 10px;
+}
+</style>
+
+<form action="/activator/activate" method="POST">
+	<fieldset>
+		<legend>System</legend>
+		<label>Driver type:
+			<select name="System.Driver">
+				<option value="namedqueue">Named queue</option>
+				<option value="usrp">USRP</option>
+			</select>
+		</label>
+		<label>Transmitter target:
+			<input type="text" name="System.Target.Tx" value="channel" />
+		</label>
+		<label>Receiver target:
+			<input type="text" name="System.Target.Rx" value="channel" />
+		</label>
+	</fieldset>
+
+	<fieldset>
+		<legend>Modulation</legend>
+		<label>
+			Modulation Scheme:
+			<select name="Mod.Scheme">
+				<option value="qpsk">QPSK</option>
+			</select>
+		</label>
+	</fieldset>
+
+	<fieldset>
+		<legend>Filter</legend>
+		<label>
+			Symbol duration:
+			<input type="text" name="Filter.SymbolDuration" value="16" />
+		</label>
+		<label>
+			Filter span:
+			<input type="text" name="Filter.Span" value="16" />
+		</label>
+		<label>
+			Filter type (Transmitter):
+			<select name="Filter.Type.Tx">
+				<option value="rootraisedcos">Root raised cosine</option>
+				<option value="raisedcos">Raised cosine</option>
+				<option value="none">None</option>
+			</select>
+		</label>
+		<label>
+			Filter type (Receiver):
+			<select name="Filter.Type.Rx">
+				<option name="raisedcos">Root raised cosine</option>
+				<option name="rootraisedcos">Raised cosine</option>
+				<option name="none">None</option>
+			</select>
+		</label>
+		<label>
+			Roll-off factor:
+			<input type="text" name="Filter.Rolloff" value="16" />
+		</label>
+	</fieldset>
+	<input type="submit" />
+</form>
+
+{{template "footer.html" .}}

@@ -15,8 +15,13 @@ GET     /public/*filepath                       Static.Serve("public")
 GET     /data/:id/fetch                         Data.Fetch
 GET     /data/:id/meta                          Data.Meta
 
-POST    /api/command/activate                   Command.Activate
-WS      /api/command/activity                   Command.Activity
+GET     /logger/monitor                         Logger.Monitor
+WS      /logger/monitor                         Logger.MonitorWS
+
+GET     /command                                Command.Index
+
+GET     /activator/activate                     Activator.Activate
+POST    /activator/activate                     Activator.ActivatePost
 
 # Catch all
 *       /:controller/:action                    :controller.:action

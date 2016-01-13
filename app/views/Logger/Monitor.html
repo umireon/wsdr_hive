@@ -1,0 +1,19 @@
+{{set . "title" "Home"}}
+
+{{template "header.html" .}}
+
+{{template "footer.html" .}}
+
+<script>
+var ws = new WebSocket("ws://localhost:9000/logger/monitor");
+	console.log(ws);
+ws.onmessage = function(e) {
+	document.body.innerHTML += e.data;
+}
+ws.onerror = function(e) {
+	console.log("err", e)
+}
+window.addEventListener("beforeunload", function(e) {
+	ws.close();
+});
+</script>

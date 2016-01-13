@@ -3,7 +3,6 @@ package controllers
 import (
 	"fmt"
 	"github.com/revel/revel"
-	"github.com/umireon/wsdr_hive/app/activator"
 	"golang.org/x/net/websocket"
 	"time"
 )
@@ -16,11 +15,6 @@ type Command struct {
 
 func (c Command) Index() revel.Result {
 	return c.Render()
-}
-
-func (c Command) Activate() revel.Result {
-	activator.Activate()
-	return c.RenderJson(123)
 }
 
 func (c Command) Activity(user string, ws *websocket.Conn) revel.Result {

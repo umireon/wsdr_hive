@@ -1,4 +1,4 @@
-package activator
+package logger
 
 import (
 	"container/list"
@@ -10,7 +10,7 @@ type Event struct {
 	Message string
 }
 
-func Join() <-chan Event {
+func Subscribe() <-chan Event {
 	ch := make(chan Event)
 	subscribe <- ch
 	return ch
@@ -20,7 +20,7 @@ func Cancel(ch <-chan Event) {
 	unsubscribe <- ch
 }
 
-func Activate(msg string) {
+func Info(msg string) {
 	e := Event{Type: "INFO", Message: msg}
 	publish <- e
 }
@@ -35,13 +35,14 @@ func logger() {
 	subscribers := list.New()
 
 	for {
-		revel.TRACE.Println("Listening to an event...")
+		revel.TRACE.Printf("Listening to logger event...")
 		select {
 		case ch := <-subscribe:
-			revel.INFO.Println("Joining a new core")
+			revel.TRACE.Println("A new channel subscribing")
+			revel.TRACE.Printf("%d channel(s) subscribing\n", subscribers.Len())
 			subscribers.PushBack(ch)
 		case unsub := <-unsubscribe:
-			revel.INFO.Println("Canceled joining a core")
+			revel.TRACE.Println("An existing channel unsubscribing")
 			for ch := subscribers.Front(); ch != nil; ch = ch.Next() {
 				if ch.Value.(chan Event) == unsub {
 					subscribers.Remove(ch)
@@ -49,15 +50,22 @@ func logger() {
 				}
 			}
 		case e := <-publish:
-			revel.INFO.Println("Activating waiting cores")
+			revel.TRACE.Println("Publishing event")
 			for ch := subscribers.Front(); ch != nil; ch = ch.Next() {
+				revel.TRACE.Println(ch)
 				ch.Value.(chan Event) <- e
 			}
-			subscribers.Init()
 		}
 	}
 }
 
 func init() {
+	go func() {
+		ch := Subscribe()
+		for e := range ch {
+			revel.INFO.Println(e.Message)
+		}
+	}()
+
 	go logger()
 }

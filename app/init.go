@@ -1,6 +1,8 @@
 package app
 
-import "github.com/revel/revel"
+import (
+	"github.com/revel/revel"
+)
 
 var Event struct {
 	Activate chan struct{}
