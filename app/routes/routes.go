@@ -4,6 +4,48 @@ package routes
 import "github.com/revel/revel"
 
 
+type tCommand struct {}
+var Command tCommand
+
+
+func (_ tCommand) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Command.Index", args).Url
+}
+
+func (_ tCommand) Activity(
+		user string,
+		ws interface{},
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "user", user)
+	revel.Unbind(args, "ws", ws)
+	return revel.MainRouter.Reverse("Command.Activity", args).Url
+}
+
+
+type tData struct {}
+var Data tData
+
+
+func (_ tData) Meta(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Data.Meta", args).Url
+}
+
+func (_ tData) Fetch(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Data.Fetch", args).Url
+}
+
+
 type tEvent struct {}
 var Event tEvent
 
@@ -121,48 +163,6 @@ func (_ tApp) Index(
 	args := make(map[string]string)
 	
 	return revel.MainRouter.Reverse("App.Index", args).Url
-}
-
-
-type tCommand struct {}
-var Command tCommand
-
-
-func (_ tCommand) Index(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Command.Index", args).Url
-}
-
-func (_ tCommand) Activity(
-		user string,
-		ws interface{},
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "user", user)
-	revel.Unbind(args, "ws", ws)
-	return revel.MainRouter.Reverse("Command.Activity", args).Url
-}
-
-
-type tData struct {}
-var Data tData
-
-
-func (_ tData) Meta(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Data.Meta", args).Url
-}
-
-func (_ tData) Fetch(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Data.Fetch", args).Url
 }
 
 

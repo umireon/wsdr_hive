@@ -1,4 +1,5 @@
 {{set . "title" "Home"}}
+{{append . "moreScripts" "js/activator_activate.js"}}
 {{template "header.html" .}}
 
 <style>
@@ -29,7 +30,8 @@ fieldset {
 		<label>
 			Modulation Scheme:
 			<select name="Mod.Scheme">
-				<option value="qpsk">QPSK</option>
+				<option value="QPSK">QPSK</option>
+				<option value="16QAM">16QAM</option>
 			</select>
 		</label>
 	</fieldset>
@@ -62,7 +64,7 @@ fieldset {
 		</label>
 		<label>
 			Roll-off factor:
-			<input type="text" name="Filter.Rolloff" value="16" />
+			<input type="text" name="Filter.Rolloff" value="1" />
 		</label>
 	</fieldset>
 	<input type="submit" />
